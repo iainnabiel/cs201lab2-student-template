@@ -205,6 +205,7 @@ public class SinglyLinkedList<E extends Comparable<E>> {
         } else if (tail == nodeB) {
             tail = nodeA;
         }
+        
     }
 }
 
