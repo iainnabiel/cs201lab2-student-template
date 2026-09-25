@@ -1,4 +1,3 @@
-import java.util.*;
 
 public class SinglyLinkedList<E extends Comparable<E>> {
     private Node<E> head = null;
@@ -101,9 +100,111 @@ public class SinglyLinkedList<E extends Comparable<E>> {
 
     // write your codes here
     public void swap(){
-        
+        Node<E> current = head;
+        Node<E> currentSmallest = head;
+        Node<E> currentLargest = head;
 
+        while (current != null) {
+            if (current.getElement().compareTo(currentSmallest.getElement()) < 0) {
+                currentSmallest = current;
+            }
+            if (current.getElement().compareTo(currentLargest.getElement()) > 0) {
+                currentLargest = current;
+            }
+            current = current.getNext();
+        }
+
+        while (currentLargest.getElement().compareTo(currentSmallest.getElement()) > 0) {
+
+            swapNodes(currentLargest, currentSmallest);
+
+            Node<E> nextSmallest = null;
+            Node<E> nextLargest = null;
+
+            current = head;
+
+             while (current != null) {
+                if (current.getElement().compareTo(currentSmallest.getElement()) > 0 && (nextSmallest == null || current.getElement().compareTo(nextSmallest.getElement()) < 0)) {
+                    nextSmallest = current;
+                }
+                if (current.getElement().compareTo(currentLargest.getElement()) < 0 && (nextLargest == null || current.getElement().compareTo(nextLargest.getElement()) > 0)) {
+                    nextLargest = current;
+                }
+                current = current.getNext();
+            }
+            currentLargest = nextLargest;
+            currentSmallest = nextSmallest;
+        }
     }
    
+    public void swapNodes(Node<E> nodeA, Node<E> nodeB) {
+        if (nodeA == nodeB) {
+            return;
+        }
+
+        Node<E> current = head;
+        Node<E> prevA = null;
+        Node<E> prevB = null;
+
+        while (current != null) {
+            if (current.getNext() == nodeA) {
+                prevA = current;
+            }
+
+            if (current.getNext() == nodeB) {
+                prevB = current;
+            }
+
+            current = current.getNext();
+        }
+
+        if (nodeA.getNext() == nodeB) {
+
+            if (prevA == null) {
+                head = nodeB;
+            } else {
+                prevA.setNext(nodeB);
+            }
+
+            nodeA.setNext(nodeB.getNext());
+            nodeB.setNext(nodeA);
+
+        } else if (nodeB.getNext() == nodeA) {
+
+            if (prevB == null) {
+                head = nodeA;
+            } else {
+                prevB.setNext(nodeA);
+            }
+
+            nodeB.setNext(nodeA.getNext());
+            nodeA.setNext(nodeB);
+
+        } else {
+
+            if (prevA == null) {
+                head = nodeB;
+            } else {
+                prevA.setNext(nodeB);
+            }
+
+            if (prevB == null) {
+                head = nodeA;
+            } else {
+                prevB.setNext(nodeA);
+            }
+
+            Node<E> nextA = nodeA.getNext();
+
+            nodeA.setNext(nodeB.getNext());
+            nodeB.setNext(nextA);
+        }
+
+        if (tail == nodeA) {
+            tail = nodeB;
+        } else if (tail == nodeB) {
+            tail = nodeA;
+        }
+    }
 }
 
