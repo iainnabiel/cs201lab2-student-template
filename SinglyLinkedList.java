@@ -117,7 +117,7 @@ public class SinglyLinkedList<E extends Comparable<E>> {
     int hi = byValue.size() - 1;
 
     while (low < hi) {
-        Node<E> smallestNode = byValue.get(lo);
+        Node<E> smallestNode = byValue.get(low);
         Node<E> largestNode = byValue.get(hi);
 
         if (smallestNode.getElement().compareTo(largestNode.getElement()) >= 0) {
