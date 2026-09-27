@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class SinglyLinkedList<E extends Comparable<E>> {
     private Node<E> head = null;
@@ -99,43 +101,34 @@ public class SinglyLinkedList<E extends Comparable<E>> {
     }
 
     // write your codes here
-    public void swap(){
-        Node<E> current = head;
-        Node<E> currentSmallest = head;
-        Node<E> currentLargest = head;
-
-        while (current != null) {
-            if (current.getElement().compareTo(currentSmallest.getElement()) < 0) {
-                currentSmallest = current;
-            }
-            if (current.getElement().compareTo(currentLargest.getElement()) > 0) {
-                currentLargest = current;
-            }
-            current = current.getNext();
-        }
-
-        while (currentLargest.getElement().compareTo(currentSmallest.getElement()) > 0) {
-
-            swapNodes(currentLargest, currentSmallest);
-
-            Node<E> nextSmallest = null;
-            Node<E> nextLargest = null;
-
-            current = head;
-
-             while (current != null) {
-                if (current.getElement().compareTo(currentSmallest.getElement()) > 0 && (nextSmallest == null || current.getElement().compareTo(nextSmallest.getElement()) < 0)) {
-                    nextSmallest = current;
-                }
-                if (current.getElement().compareTo(currentLargest.getElement()) < 0 && (nextLargest == null || current.getElement().compareTo(nextLargest.getElement()) > 0)) {
-                    nextLargest = current;
-                }
-                current = current.getNext();
-            }
-            currentLargest = nextLargest;
-            currentSmallest = nextSmallest;
-        }
+    public void swap() {
+    
+    List<Node<E>> nodes = new ArrayList<>();
+    Node<E> current = head;
+    while (current != null) {
+        nodes.add(current);
+        current = current.getNext();
     }
+
+    List<Node<E>> byValue = new ArrayList<>(nodes);
+    byValue.sort((a, b) -> a.getElement().compareTo(b.getElement()));
+
+    int low = 0
+    int hi = byValue.size() - 1;
+
+    while (low < hi) {
+        Node<E> smallestNode = byValue.get(lo);
+        Node<E> largestNode = byValue.get(hi);
+
+        if (smallestNode.getElement().compareTo(largestNode.getElement()) >= 0) {
+            break;
+        }
+
+        swapNodes(largestNode, smallestNode);
+        low++;
+        hi--;
+    }
+}
    
     public void swapNodes(Node<E> nodeA, Node<E> nodeB) {
         if (nodeA == nodeB) {
