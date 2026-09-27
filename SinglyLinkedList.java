@@ -130,75 +130,15 @@ public class SinglyLinkedList<E extends Comparable<E>> {
     }
 }
    
-    public void swapNodes(Node<E> nodeA, Node<E> nodeB) {
-        if (nodeA == nodeB) {
-            return;
+        public void swapNodes(Node<E> nodeA, Node<E> nodeB) {
+            if (nodeA == nodeB) {
+                return;
+            }
+            
+            E temp = nodeA.getElement();
+            nodeA.element = nodeB.getElement();
+            nodeB.element = temp;
         }
 
-        Node<E> current = head;
-        Node<E> prevA = null;
-        Node<E> prevB = null;
-
-        while (current != null) {
-            if (current.getNext() == nodeA) {
-                prevA = current;
-            }
-
-            if (current.getNext() == nodeB) {
-                prevB = current;
-            }
-
-            current = current.getNext();
-        }
-
-        if (nodeA.getNext() == nodeB) {
-
-            if (prevA == null) {
-                head = nodeB;
-            } else {
-                prevA.setNext(nodeB);
-            }
-
-            nodeA.setNext(nodeB.getNext());
-            nodeB.setNext(nodeA);
-
-        } else if (nodeB.getNext() == nodeA) {
-
-            if (prevB == null) {
-                head = nodeA;
-            } else {
-                prevB.setNext(nodeA);
-            }
-
-            nodeB.setNext(nodeA.getNext());
-            nodeA.setNext(nodeB);
-
-        } else {
-
-            if (prevA == null) {
-                head = nodeB;
-            } else {
-                prevA.setNext(nodeB);
-            }
-
-            if (prevB == null) {
-                head = nodeA;
-            } else {
-                prevB.setNext(nodeA);
-            }
-
-            Node<E> nextA = nodeA.getNext();
-
-            nodeA.setNext(nodeB.getNext());
-            nodeB.setNext(nextA);
-        }
-
-        if (tail == nodeA) {
-            tail = nodeB;
-        } else if (tail == nodeB) {
-            tail = nodeA;
-        }
-        
-    }
 }
 
