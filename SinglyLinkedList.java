@@ -113,7 +113,7 @@ public class SinglyLinkedList<E extends Comparable<E>> {
     List<Node<E>> byValue = new ArrayList<>(nodes);
     byValue.sort((a, b) -> a.getElement().compareTo(b.getElement()));
 
-    int low = 0
+    int low = 0;
     int hi = byValue.size() - 1;
 
     while (low < hi) {
